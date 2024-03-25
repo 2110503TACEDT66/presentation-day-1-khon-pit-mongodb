@@ -1,16 +1,17 @@
-const Dentist = require("../models/Dentist");
+const Dentist = require('../models/Dentist');
 
 //@desc     Get all dentists
 //@route    GET /api/v1/dentists
 //@access   Public
 exports.getDentists = async (req, res, next) => {
+  console.log('bug test');
   let query;
 
   //Copy req.query
   const reqQuery = { ...req.query };
 
   //Fields to exclude
-  const removeFields = ["select", "sort", "page", "limit"];
+  const removeFields = ['select', 'sort', 'page', 'limit'];
 
   //Loop over remove fields and delete them from reqQuery
   removeFields.forEach((param) => delete reqQuery[param]);
@@ -24,19 +25,19 @@ exports.getDentists = async (req, res, next) => {
   );
 
   //finding resource
-  query = Dentist.find(JSON.parse(queryStr)).populate("bookings");
+  query = Dentist.find(JSON.parse(queryStr)).populate('bookings');
 
   //Select Fields
   if (req.query.select) {
-    const fields = req.query.select.split(",").join(" ");
+    const fields = req.query.select.split(',').join(' ');
     query = query.select(fields);
   }
   //Sort
   if (req.query.sort) {
-    const sortBy = req.query.sort.split(",").join(" ");
+    const sortBy = req.query.sort.split(',').join(' ');
     query = query.sort(sortBy);
   } else {
-    query = query.sort("name");
+    query = query.sort('name');
   }
 
   //Pagination
@@ -87,8 +88,12 @@ exports.getDentist = async (req, res, next) => {
     const dentist = await Dentist.findById(req.params.id);
 
     if (!dentist) {
-      return res.status(400).json({ success: false,
-      message: `Dentist not found with id of ${req.params.id}`  });
+      return res
+        .status(400)
+        .json({
+          success: false,
+          message: `Dentist not found with id of ${req.params.id}`,
+        });
     }
 
     res.status(200).json({ success: true, data: dentist });
@@ -116,16 +121,18 @@ exports.updateDentist = async (req, res, next) => {
     });
 
     if (!dentist) {
-      return res.status(400).json({ 
+      return res.status(400).json({
         success: false,
-        message: `Dentist not found with id of ${req.params.id}` });
+        message: `Dentist not found with id of ${req.params.id}`,
+      });
     }
 
     res.status(200).json({ success: true, data: dentist });
   } catch (err) {
-    res.status(400).json({ 
+    res.status(400).json({
       success: false,
-      message: `Cannot update dentist` });
+      message: `Cannot update dentist`,
+    });
   }
 };
 
