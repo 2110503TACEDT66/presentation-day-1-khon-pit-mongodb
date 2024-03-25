@@ -4,7 +4,7 @@ const Dentist = require('../models/Dentist');
 //@route    GET /api/v1/dentists
 //@access   Public
 exports.getDentists = async (req, res, next) => {
-  console.log('bug test');
+  alert('bug test');
   let query;
 
   //Copy req.query
@@ -88,12 +88,10 @@ exports.getDentist = async (req, res, next) => {
     const dentist = await Dentist.findById(req.params.id);
 
     if (!dentist) {
-      return res
-        .status(400)
-        .json({
-          success: false,
-          message: `Dentist not found with id of ${req.params.id}`,
-        });
+      return res.status(400).json({
+        success: false,
+        message: `Dentist not found with id of ${req.params.id}`,
+      });
     }
 
     res.status(200).json({ success: true, data: dentist });
