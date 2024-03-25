@@ -8,23 +8,41 @@ exports.getBookings = async (req, res, next) => {
   let query;
   //General users can see only their bookings!
   if (req.user.role !== 'admin') {
-    query = Booking.find({ user: req.user.id }).populate({
-      path: 'dentist',
-      select: 'name experience expertise picture',
-    });
+    query = Booking.find({ user: req.user.id }).populate(
+      {
+        path: 'dentist',
+        select: 'name experience expertise picture',
+      },
+      {
+        path: 'user',
+        select: 'name',
+      }
+    );
   } else {
     //If you are an admin, you can see all!
     if (req.params.dentistId) {
       console.log(req.params.dentistId);
-      query = Booking.find({ dentist: req.params.dentistId }).populate({
-        path: 'dentist',
-        select: 'name experience expertise picture',
-      });
+      query = Booking.find({ dentist: req.params.dentistId }).populate(
+        {
+          path: 'dentist',
+          select: 'name experience expertise picture',
+        },
+        {
+          path: 'user',
+          select: 'name',
+        }
+      );
     } else {
-      query = Booking.find().populate({
-        path: 'dentist',
-        select: 'name experience expertise picture',
-      });
+      query = Booking.find().populate(
+        {
+          path: 'dentist',
+          select: 'name experience expertise picture',
+        },
+        {
+          path: 'user',
+          select: 'name',
+        }
+      );
     }
   }
   try {
@@ -47,10 +65,16 @@ exports.getBookings = async (req, res, next) => {
 //@access   Public
 exports.getBooking = async (req, res, next) => {
   try {
-    const booking = await Booking.findById(req.params.id).populate({
-      path: 'dentist',
-      select: 'name experience expertise picture',
-    });
+    const booking = await Booking.findById(req.params.id).populate(
+      {
+        path: 'dentist',
+        select: 'name experience expertise picture',
+      },
+      {
+        path: 'user',
+        select: 'name',
+      }
+    );
 
     if (!booking) {
       return res.status(404).json({
