@@ -15,10 +15,6 @@ const BookingSchema = new mongoose.Schema({
     ref: 'Dentist',
     required: true,
   },
-  symptom: {
-    type: String,
-    required: true,
-  },
   createdAt: {
     type: Date,
     default: Date.now,

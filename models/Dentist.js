@@ -39,4 +39,12 @@ DentistSchema.pre(
   }
 );
 
+//Reverse populate with virtuals
+DentistSchema.virtual('bookings', {
+  ref: 'Booking',
+  localField: '_id',
+  foreignField: 'dentist',
+  justOne: false,
+});
+
 module.exports = mongoose.model('Dentist', DentistSchema);
