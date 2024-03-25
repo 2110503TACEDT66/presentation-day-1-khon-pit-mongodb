@@ -17,6 +17,10 @@ const DentistSchema = new mongoose.Schema(
       type: String,
       required: [true, 'Please add a years of expertise'],
     },
+    picture: {
+      type: String,
+      required: [true, 'Please add link to picture'],
+    },
   },
   {
     toJSON: { virtuals: true },
