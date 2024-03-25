@@ -4,7 +4,6 @@ const Dentist = require('../models/Dentist');
 //@route    GET /api/v1/dentists
 //@access   Public
 exports.getDentists = async (req, res, next) => {
-  alert('bug test');
   let query;
 
   //Copy req.query
