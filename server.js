@@ -62,7 +62,7 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: 'http://localhost:5000/api/v1',
+        url: process.env.HOST + ':' + PORT + '/api/v1',
       },
     ],
   },
@@ -80,7 +80,11 @@ const PORT = process.env.PORT || 5000;
 
 const server = app.listen(
   PORT,
-  console.log('Server running in', process.env.NODE_ENV, 'mode on port', PORT)
+  console.log(
+    'Server running in',
+    process.env.NODE_ENV,
+    'mode on ' + process.env.HOST + ':' + PORT
+  )
 );
 
 //Handle unhandled promise rejections
